@@ -6,6 +6,7 @@
   "repository": "git@github.com:DevilRep/fifteen-puzzle-core-typescript.git",
   "author": "flaringrep@gmail.com",
   "license": "Apache-2.0",
+  "module": "./lib/index.js",
   "devDependencies": {
     "typescript": "^4.3.5"
   },
