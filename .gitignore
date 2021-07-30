@@ -75,3 +75,7 @@ fabric.properties
 /.idea/fifteen-puzzle.iml
 /.idea/modules.xml
 /.idea/vcs.xml
+/.idea/core.iml
+
+
+node_modules
