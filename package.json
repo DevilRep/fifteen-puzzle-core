@@ -10,7 +10,9 @@
     "typescript": "^4.3.5"
   },
   "scripts": {
-    "build":  "tsc",
+    "build": "yarn build:esm && yarn build:cjs",
+    "build:esm": "tsc",
+    "build:cjs": "tsc --module commonjs --outDir lib/cjs",
     "dev": "tsc --watch",
     "postinstall": "yarn run build"
   }
