@@ -8,5 +8,10 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "typescript": "^4.3.5"
+  },
+  "scripts": {
+    "build":  "tsc",
+    "dev": "tsc --watch",
+    "postinstall": "yarn run build"
   }
 }
