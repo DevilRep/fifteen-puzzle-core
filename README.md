@@ -20,7 +20,7 @@ This is a lib implementing the core of the project. It can be used with differen
 
 
 ## Setup
-Add a lib to your npm file by this command ```npm install git+ssh://git@github.com:<githubname>/<githubrepo.git>[#semver:^1.x]```
+Add a lib to your npm file by this command ```npm install git+ssh@github.com:DevilRep/fifteen-puzzle-core-typescript.git[#semver:^1.x]```
 
 
 ## Project Status
