@@ -35,18 +35,22 @@ export default class Field {
         }
     }
 
-    async move(position: number): Promise<void> {
-        if (position > this.FIELD_SIZE || position < 0) {
-            throw new Error(`Error: position ${position} is invalid`)
+    async move(cellPosition: number): Promise<void> {
+        if (cellPosition > this.FIELD_SIZE || cellPosition < 0) {
+            throw new Error(`Error: position ${cellPosition} is invalid`)
         }
 
-        let activeCell: Cell | undefined = this.cells.find(cell => cell.position === position)
+        let activeCell: Cell | undefined = this.cells.find(cell => cell.position === cellPosition)
         if (!(activeCell instanceof Cell) || !this.canMove(activeCell)) {
-            return
+            throw new Error(`can't move the cell ${cellPosition}`)
         }
         await Promise.all([
             activeCell.move(this.freeCell.position),
             this.freeCell.move(activeCell.position)
         ])
+    }
+
+    toString(): string {
+        return this.cells.map(cell => cell.position).join(',') + ',' + this.freeCell.position.toString()
     }
 }
