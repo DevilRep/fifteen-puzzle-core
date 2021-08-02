@@ -1,5 +1,5 @@
 {
-  "name": "fifteen-puzzle-core-typescript",
+  "name": "fifteen-puzzle-core",
   "version": "1.0.0",
   "description": "Libs for fifteen-puzzle",
   "repository": "git@github.com:DevilRep/fifteen-puzzle-core-typescript.git",
