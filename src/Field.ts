@@ -18,6 +18,7 @@ export default class Field {
             this.cells.push(new Cell(index, index.toString()))
         }
         this.freeCell = new Cell(this.FIELD_SIZE, '0')
+        this.isNewGame = true
     }
 
     async newGame(): Promise<void> {
@@ -49,6 +50,7 @@ export default class Field {
             activeCell.move(this.freeCell.position),
             this.freeCell.move(activeCell.position)
         ])
+        this.isNewGame = false
     }
 
     toString(): string {
