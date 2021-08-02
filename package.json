@@ -2,7 +2,7 @@
   "name": "fifteen-puzzle-core",
   "version": "1.0.0",
   "description": "Libs for fifteen-puzzle",
-  "repository": "git@github.com:DevilRep/fifteen-puzzle-core-typescript.git",
+  "repository": "git@github.com:DevilRep/fifteen-puzzle-core.git",
   "author": "flaringrep@gmail.com",
   "license": "Apache-2.0",
   "main": "lib/index.js",
