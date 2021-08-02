@@ -10,6 +10,11 @@ export default class Cell {
     }
 
     async move(newPosition: number): Promise<void> {
-        this.realPosition = newPosition
+        return new Promise((resolve) => {
+            process.nextTick(() => {
+                this.realPosition = newPosition
+                resolve()
+            })
+        })
     }
 }

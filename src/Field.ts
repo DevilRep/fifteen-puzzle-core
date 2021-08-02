@@ -7,16 +7,16 @@ export default class Field {
     protected readonly FIELD_WIDTH = 4
 
     constructor() {
-        this.freeCell = new Cell(this.FIELD_WIDTH, '0')
+        this.freeCell = new Cell(this.FIELD_SIZE, '0')
         this.init()
     }
 
     init(): void {
-        let index: number = this.FIELD_SIZE - 1
-        while(index--) {
+        this.cells = []
+        for(let index: number = 1; index <= this.FIELD_SIZE - 1; index++) {
             this.cells.push(new Cell(index, index.toString()))
         }
-        this.freeCell = new Cell(this.FIELD_WIDTH, '0')
+        this.freeCell = new Cell(this.FIELD_SIZE, '0')
     }
 
     async newGame(): Promise<void> {
@@ -36,7 +36,7 @@ export default class Field {
     }
 
     async move(cellPosition: number): Promise<void> {
-        if (cellPosition > this.FIELD_SIZE || cellPosition < 0) {
+        if (cellPosition > this.FIELD_SIZE || cellPosition < 1) {
             throw new Error(`Error: position ${cellPosition} is invalid`)
         }
 
