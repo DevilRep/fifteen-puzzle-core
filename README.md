@@ -7,6 +7,7 @@ Rules can be found [_here_](https://en.wikipedia.org/wiki/15_puzzle)
 * [General Info](#general-information)
 * [Technologies Used](#technologies-used)
 * [Setup](#setup)
+* [Tests](#tests)
 * [Project Status](#project-status)
 * [License](#license)
 
@@ -20,8 +21,11 @@ This is a lib implementing the core of the project. It can be used with differen
 
 
 ## Setup
-Add a lib to your npm file by this command ```yarn add https://github.com/DevilRep/fifteen-puzzle-core-typescript.git#semver:^1.x```
+Add a lib to your npm file by this command ```yarn add https://github.com/DevilRep/fifteen-puzzle-core.git#semver:^1.x```
 
+
+## Tests
+To run tests use this command ```yarn test```
 
 ## Project Status
 Project is: _in progress_
