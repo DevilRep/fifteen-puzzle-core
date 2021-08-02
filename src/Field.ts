@@ -5,13 +5,14 @@ export default class Field {
     protected freeCell: Cell
     protected readonly FIELD_SIZE = 16
     protected readonly FIELD_WIDTH = 4
+    public isNewGame: boolean = false
 
     constructor() {
         this.freeCell = new Cell(this.FIELD_SIZE, '0')
         this.init()
     }
 
-    init(): void {
+    protected init(): void {
         this.cells = []
         for(let index: number = 1; index <= this.FIELD_SIZE - 1; index++) {
             this.cells.push(new Cell(index, index.toString()))
