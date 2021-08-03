@@ -21,7 +21,7 @@ This is a lib implementing the core of the project. It can be used with differen
 
 
 ## Setup
-Add a lib to your npm file by this command ```yarn add https://github.com/DevilRep/fifteen-puzzle-core.git#semver:^0.x```
+Add a lib to your npm file by this command ```yarn add https://github.com/DevilRep/fifteen-puzzle-core.git#semver:^1.x```
 
 
 ## Tests
