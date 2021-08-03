@@ -1,4 +1,5 @@
-import Cell from './Cell'
+import Cell from './interfaces/Cell'
+import AbstractFactory from './interfaces/AbstractFactory'
 
 export default class Field {
     protected cells: Array<Cell> = []
@@ -6,18 +7,20 @@ export default class Field {
     protected readonly FIELD_SIZE = 16
     protected readonly FIELD_WIDTH = 4
     public isNewGame: boolean = false
+    protected factory: AbstractFactory
 
-    constructor() {
-        this.freeCell = new Cell(this.FIELD_SIZE, '0')
+    constructor(factory: AbstractFactory) {
+        this.factory = factory
+        this.freeCell = this.factory.create(this.FIELD_SIZE, '0')
         this.init()
     }
 
     protected init(): void {
         this.cells = []
         for(let index: number = 1; index <= this.FIELD_SIZE - 1; index++) {
-            this.cells.push(new Cell(index, index.toString()))
+            this.cells.push(this.factory.create(index, index.toString()))
         }
-        this.freeCell = new Cell(this.FIELD_SIZE, '0')
+        this.freeCell = this.factory.create(this.FIELD_SIZE, '0')
         this.isNewGame = true
     }
 
@@ -41,9 +44,8 @@ export default class Field {
         if (cellPosition > this.FIELD_SIZE || cellPosition < 1) {
             throw new Error(`Error: position ${cellPosition} is invalid`)
         }
-
         let activeCell: Cell | undefined = this.cells.find(cell => cell.position === cellPosition)
-        if (!(activeCell instanceof Cell) || !this.canMove(activeCell)) {
+        if (typeof(activeCell) === 'undefined' || !this.canMove(activeCell)) {
             throw new Error(`can't move the cell ${cellPosition}`)
         }
         await Promise.all([
