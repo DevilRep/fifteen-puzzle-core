@@ -1,2 +1,5 @@
 export {default as Cell} from './Cell'
 export {default as Field} from './Field'
+export {default as CellInterface} from './interfaces/Cell'
+export {default as AbstractFactoryInterface} from './interfaces/AbstractFactory'
+export {default as SimpleCellFactory} from './SimpleCellFactory'
