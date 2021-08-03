@@ -17,7 +17,9 @@ This is a lib implementing the core of the project. It can be used with differen
 
 
 ## Technologies Used
-- typescript - version 3.6.0
+- typescript - version 4.3.5
+- jest - version 26.0.6
+- ts-jest - version 26.0.4
 
 
 ## Setup
