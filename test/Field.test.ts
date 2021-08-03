@@ -1,6 +1,6 @@
 import Field from '../src/Field'
 import SimpleCellFactory from '../src/SimpleCellFactory'
-import Cell from '../src/Cell'
+import Cell from '../src/interfaces/Cell'
 
 test('creating a new object with sorted data', () => {
     const field: Field = new Field(new SimpleCellFactory())
@@ -140,9 +140,19 @@ test('stating a new game after moving the cell 12: checking is game new', async 
 
 test('creating cells using factory', () => {
     const field: Field = new Field({
-        create(position: number, data: string): Cell {
-            return new Cell(2 * position, 'test-' + data)
+        create(): Cell {
+            return {
+                get position(): number {
+                    return 2
+                },
+                get display(): string {
+                    return 'data'
+                },
+                move(): Promise<void> {
+                    return Promise.resolve()
+                }
+            }
         }
     })
-    expect(field.toString()).toEqual('2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32')
+    expect(field.toString()).toEqual('2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2')
 })

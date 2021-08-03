@@ -1,6 +1,6 @@
 import SimpleCellFactory from '../src/SimpleCellFactory'
 import AbstractFactory from '../src/interfaces/AbstractFactory'
-import {Cell} from '../src'
+import Cell from '../src/interfaces/Cell'
 
 test('creating a new cell: checking the position', () => {
     const factory: AbstractFactory = new SimpleCellFactory()

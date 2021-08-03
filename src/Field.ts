@@ -1,4 +1,4 @@
-import Cell from './Cell'
+import Cell from './interfaces/Cell'
 import AbstractFactory from './interfaces/AbstractFactory'
 
 export default class Field {
@@ -44,9 +44,8 @@ export default class Field {
         if (cellPosition > this.FIELD_SIZE || cellPosition < 1) {
             throw new Error(`Error: position ${cellPosition} is invalid`)
         }
-
         let activeCell: Cell | undefined = this.cells.find(cell => cell.position === cellPosition)
-        if (!(activeCell instanceof Cell) || !this.canMove(activeCell)) {
+        if (typeof(activeCell) === 'undefined' || !this.canMove(activeCell)) {
             throw new Error(`can't move the cell ${cellPosition}`)
         }
         await Promise.all([
