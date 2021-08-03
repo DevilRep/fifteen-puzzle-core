@@ -1,4 +1,5 @@
 import Cell from './Cell'
+import AbstractFactory from './interfaces/AbstractFactory'
 
 export default class Field {
     protected cells: Array<Cell> = []
@@ -7,8 +8,9 @@ export default class Field {
     protected readonly FIELD_WIDTH = 4
     public isNewGame: boolean = false
 
-    constructor() {
+    constructor(factory: AbstractFactory) {
         this.freeCell = new Cell(this.FIELD_SIZE, '0')
+        factory.create(0, '0')
         this.init()
     }
 
