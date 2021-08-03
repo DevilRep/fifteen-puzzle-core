@@ -90,7 +90,7 @@ test('trying to move cell with position less than 1: positions are not changed',
     try {
         await field.move(0)
     } catch (error) {
-        expect(error.message).toBe('Error: position 0 is invalid')
+        expect(error.message).toBe('position 0 is invalid')
     }
 })
 
@@ -110,7 +110,7 @@ test('try to move cell with position more than 16: positions are not changed', a
     try {
         await field.move(17)
     } catch (error) {
-        expect(error.message).toBe('Error: position 17 is invalid')
+        expect(error.message).toBe('position 17 is invalid')
     }
 })
 
