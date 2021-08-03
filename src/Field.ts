@@ -7,19 +7,20 @@ export default class Field {
     protected readonly FIELD_SIZE = 16
     protected readonly FIELD_WIDTH = 4
     public isNewGame: boolean = false
+    protected factory: AbstractFactory
 
     constructor(factory: AbstractFactory) {
-        this.freeCell = new Cell(this.FIELD_SIZE, '0')
-        factory.create(0, '0')
+        this.factory = factory
+        this.freeCell = this.factory.create(this.FIELD_SIZE, '0')
         this.init()
     }
 
     protected init(): void {
         this.cells = []
         for(let index: number = 1; index <= this.FIELD_SIZE - 1; index++) {
-            this.cells.push(new Cell(index, index.toString()))
+            this.cells.push(this.factory.create(index, index.toString()))
         }
-        this.freeCell = new Cell(this.FIELD_SIZE, '0')
+        this.freeCell = this.factory.create(this.FIELD_SIZE, '0')
         this.isNewGame = true
     }
 
