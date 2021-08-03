@@ -4,10 +4,11 @@ import AbstractFactory from './interfaces/AbstractFactory'
 export default class Field {
     protected cells: Array<Cell> = []
     protected freeCell: Cell
-    protected readonly FIELD_SIZE = 16
-    protected readonly FIELD_WIDTH = 4
+    protected readonly FIELD_SIZE: number = 16
+    protected readonly FIELD_WIDTH: number = 4
     public isNewGame: boolean = false
     protected factory: AbstractFactory
+    protected readonly MOVE_ALL_RANDOM_ROUNDS: number = 10
 
     constructor(factory: AbstractFactory) {
         this.factory = factory
@@ -24,8 +25,49 @@ export default class Field {
         this.isNewGame = true
     }
 
+    protected puzzlesNear(index: number, previousChosen: number): number[] {
+        const result: number[] = []
+        let amplitudes: number[] = [this.FIELD_WIDTH, -1 * this.FIELD_WIDTH]
+        amplitudes.forEach(amplitude => {
+            let elementIndex = index - amplitude
+            if (
+                elementIndex > 0 &&
+                elementIndex <= this.FIELD_SIZE &&
+                elementIndex !== previousChosen
+            ) {
+                result.push(elementIndex)
+            }
+        })
+        amplitudes = [-1, 1]
+        amplitudes.forEach(amplitude => {
+            let elementIndex = index - amplitude
+            if (
+                Math.ceil(elementIndex / this.FIELD_WIDTH) === Math.ceil(index / this.FIELD_WIDTH) &&
+                elementIndex !== previousChosen
+            ) {
+                result.push(elementIndex)
+            }
+        })
+        return result
+    }
+
     async newGame(): Promise<void> {
         this.init()
+        let index = this.MOVE_ALL_RANDOM_ROUNDS
+        let previousChosen: number = 0
+        while(index--) {
+            const puzzles = this.puzzlesNear(this.freeCell.position, previousChosen)
+            const chosenElement = this.randomFromArray(puzzles, 1, puzzles.length)
+            previousChosen = this.freeCell.position
+            await this.move(chosenElement)
+        }
+        this.isNewGame = true
+    }
+
+    protected randomFromArray(array: number[], min: number, max: number): number {
+        min = Math.ceil(min)
+        max = Math.floor(max)
+        return array[Math.floor(Math.random() * (max - min + 1)) + min - 1]
     }
 
     protected canMove(cell: Cell): boolean {
@@ -42,7 +84,7 @@ export default class Field {
 
     async move(cellPosition: number): Promise<void> {
         if (cellPosition > this.FIELD_SIZE || cellPosition < 1) {
-            throw new Error(`Error: position ${cellPosition} is invalid`)
+            throw new Error(`position ${cellPosition} is invalid`)
         }
         let activeCell: Cell | undefined = this.cells.find(cell => cell.position === cellPosition)
         if (typeof(activeCell) === 'undefined' || !this.canMove(activeCell)) {
