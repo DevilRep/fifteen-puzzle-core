@@ -4,7 +4,7 @@ import Cell from '../src/interfaces/Cell'
 
 test('creating a new object with sorted data', () => {
     const field: Field = new Field(new SimpleCellFactory())
-    expect(field.toString()).toEqual('1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16')
+    expect(field.toString()).toBe('1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16')
 })
 
 test('stating a new game while creating a new object', () => {
@@ -23,13 +23,13 @@ test('stating a new game while creating a new object', () => {
  *  9 10 11 16
  * 13 14 15 12
  */
-test('moving cell 12 down: checking position', async () => {
+test('moving cell 12 down: position are changed', async () => {
     const field: Field = new Field(new SimpleCellFactory())
     await field.move(12)
-    expect(field.toString()).toEqual('1,2,3,4,5,6,7,8,9,10,11,16,13,14,15,12')
+    expect(field.toString()).toBe('1,2,3,4,5,6,7,8,9,10,11,16,13,14,15,12')
 })
 
-test('moving cell 12 down: checking is game new', async () => {
+test('moving cell 12 down: the flag `isNewGame` is changed', async () => {
     const field: Field = new Field(new SimpleCellFactory())
     await field.move(12)
     expect(field.isNewGame).toBeFalsy()
@@ -46,13 +46,13 @@ test('moving cell 12 down: checking is game new', async () => {
  *  9 10 11 12
  * 13 14 16 15
  */
-test('moving cell 15 right: checking positions', async () => {
+test('moving cell 15 right: positions are changed', async () => {
     const field: Field = new Field(new SimpleCellFactory())
     await field.move(15)
-    expect(field.toString()).toEqual('1,2,3,4,5,6,7,8,9,10,11,12,13,14,16,15')
+    expect(field.toString()).toBe('1,2,3,4,5,6,7,8,9,10,11,12,13,14,16,15')
 })
 
-test('moving cell 12 down: checking is game new', async () => {
+test('moving cell 15 down: the flag `isNewGame` is changed', async () => {
     const field: Field = new Field(new SimpleCellFactory())
     await field.move(15)
     expect(field.isNewGame).toBeFalsy()
@@ -64,17 +64,17 @@ test('moving cell 12 down: checking is game new', async () => {
  *  9 10 11 12
  * 13 14 15 16
  */
-test('try to move cell 11: checking positions', async () => {
+test('trying to move cell 11: positions are not changed', async () => {
     expect.assertions(1);
     const field: Field = new Field(new SimpleCellFactory())
     try {
         await field.move(11)
     } catch (error) {
-        expect(error.message).toEqual('can\'t move the cell 11')
+        expect(error.message).toBe('can\'t move the cell 11')
     }
 })
 
-test('try to move cell 11: checking is game new', async () => {
+test('trying to move cell 11: the flag `isNewGame` is not changed', async () => {
     expect.assertions(1);
     const field: Field = new Field(new SimpleCellFactory())
     try {
@@ -84,17 +84,17 @@ test('try to move cell 11: checking is game new', async () => {
     }
 })
 
-test('try to move cell with position less than 1: checking positions', async () => {
+test('trying to move cell with position less than 1: positions are not changed', async () => {
     expect.assertions(1)
     const field: Field = new Field(new SimpleCellFactory())
     try {
         await field.move(0)
     } catch (error) {
-        expect(error.message).toEqual('Error: position 0 is invalid')
+        expect(error.message).toBe('Error: position 0 is invalid')
     }
 })
 
-test('try to move cell with position less than 1: checking is game new', async () => {
+test('try to move cell with position less than 1: the flag `isNewGame` is not changed', async () => {
     expect.assertions(1);
     const field: Field = new Field(new SimpleCellFactory())
     try {
@@ -104,17 +104,17 @@ test('try to move cell with position less than 1: checking is game new', async (
     }
 })
 
-test('try to move cell with position more than 16: checking positions', async () => {
+test('try to move cell with position more than 16: positions are not changed', async () => {
     expect.assertions(1)
     const field: Field = new Field(new SimpleCellFactory())
     try {
         await field.move(17)
     } catch (error) {
-        expect(error.message).toEqual('Error: position 17 is invalid')
+        expect(error.message).toBe('Error: position 17 is invalid')
     }
 })
 
-test('try to move cell with position more than 16: checking is game new', async () => {
+test('try to move cell with position more than 16: the flag `isNewGame` is not changed', async () => {
     expect.assertions(1);
     const field: Field = new Field(new SimpleCellFactory())
     try {
@@ -124,14 +124,7 @@ test('try to move cell with position more than 16: checking is game new', async 
     }
 })
 
-test('starting a new game after moving the cell 12: checking positions', async () => {
-    const field: Field = new Field(new SimpleCellFactory())
-    await field.move(12)
-    await field.newGame()
-    expect(field.toString()).toEqual('1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16')
-})
-
-test('stating a new game after moving the cell 12: checking is game new', async () => {
+test('stating a new game after moving the cell 12: the flag `isNewGame` is changed', async () => {
     const field: Field = new Field(new SimpleCellFactory())
     await field.move(12)
     await field.newGame()
@@ -154,5 +147,5 @@ test('creating cells using factory', () => {
             }
         }
     })
-    expect(field.toString()).toEqual('2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2')
+    expect(field.toString()).toBe('2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2')
 })
