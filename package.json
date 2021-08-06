@@ -1,6 +1,6 @@
 {
   "name": "fifteen-puzzle-core",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Libs for fifteen-puzzle",
   "repository": "git@github.com:DevilRep/fifteen-puzzle-core.git",
   "author": "flaringrep@gmail.com",
