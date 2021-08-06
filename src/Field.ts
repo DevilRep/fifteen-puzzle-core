@@ -9,6 +9,7 @@ export default class Field {
     public isNewGame: boolean = false
     protected factory: AbstractFactory
     protected readonly MOVE_ALL_RANDOM_ROUNDS: number = 10
+    protected isGameEnded: boolean = false
 
     constructor(factory: AbstractFactory) {
         this.factory = factory
@@ -99,5 +100,9 @@ export default class Field {
 
     toString(): string {
         return this.cells.map(cell => cell.position).join(',') + ',' + this.freeCell.position.toString()
+    }
+
+    get isWon(): boolean {
+        return false
     }
 }

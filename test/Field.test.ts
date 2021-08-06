@@ -12,6 +12,11 @@ test('stating a new game while creating a new object', () => {
     expect(field.isNewGame).toBeTruthy()
 })
 
+test('starting a new game: was game ended?', () => {
+    const field: Field = new Field(new SimpleCellFactory())
+    expect(field.isWon).toBeFalsy()
+})
+
 /**
  *  1  2  3  4
  *  4  5  6  8
@@ -52,10 +57,24 @@ test('moving cell 15 right: positions are changed', async () => {
     expect(field.toString()).toBe('1,2,3,4,5,6,7,8,9,10,11,12,13,14,16,15')
 })
 
-test('moving cell 15 down: the flag `isNewGame` is changed', async () => {
+test('moving cell 15 right: the flag `isNewGame` is changed', async () => {
     const field: Field = new Field(new SimpleCellFactory())
     await field.move(15)
     expect(field.isNewGame).toBeFalsy()
+})
+
+test('moving cell 15 right and back it to previous position: was the flag `isWon` changed?', async () => {
+    const field: Field = new Field(new SimpleCellFactory())
+    await field.move(15)
+    await field.move(16)
+    expect(field.isWon).toBeTruthy()
+})
+
+test('moving cells 15 and 14 right: was the flag `isWon` changed?', async () => {
+    const field: Field = new Field(new SimpleCellFactory())
+    await field.move(15)
+    await field.move(14)
+    expect(field.isWon).toBeFalsy()
 })
 
 /**
