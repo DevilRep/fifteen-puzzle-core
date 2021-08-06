@@ -24,6 +24,7 @@ export default class Field {
         }
         this.freeCell = this.factory.create(this.FIELD_SIZE, '0')
         this.isGameNew = true
+        this.isGameEnded = false
     }
 
     protected puzzlesNear(index: number, previousChosen: number): number[] {
@@ -96,14 +97,23 @@ export default class Field {
             this.freeCell.move(activeCell.position)
         ])
         this.isGameNew = false
+        if (this.isGameShouldEnd()) {
+            this.isGameEnded = true
+        }
     }
 
     toString(): string {
         return this.cells.map(cell => cell.position).join(',') + ',' + this.freeCell.position.toString()
     }
 
+    protected isGameShouldEnd(): boolean {
+        return this.cells.filter((cell: Cell, index: number) => {
+            return cell.position !== index + 1
+        }).length === 0
+    }
+
     get isWon(): boolean {
-        return false
+        return this.isGameEnded
     }
 
     get isNewGame(): boolean {
