@@ -6,9 +6,10 @@ export default class Field {
     protected freeCell: Cell
     protected readonly FIELD_SIZE: number = 16
     protected readonly FIELD_WIDTH: number = 4
-    public isNewGame: boolean = false
+    protected isGameNew: boolean = false
     protected factory: AbstractFactory
     protected readonly MOVE_ALL_RANDOM_ROUNDS: number = 10
+    protected isGameEnded: boolean = false
 
     constructor(factory: AbstractFactory) {
         this.factory = factory
@@ -22,7 +23,8 @@ export default class Field {
             this.cells.push(this.factory.create(index, index.toString()))
         }
         this.freeCell = this.factory.create(this.FIELD_SIZE, '0')
-        this.isNewGame = true
+        this.isGameNew = true
+        this.isGameEnded = false
     }
 
     protected puzzlesNear(index: number, previousChosen: number): number[] {
@@ -61,7 +63,7 @@ export default class Field {
             previousChosen = this.freeCell.position
             await this.move(chosenElement)
         }
-        this.isNewGame = true
+        this.isGameNew = true
     }
 
     protected randomFromArray(array: number[], min: number, max: number): number {
@@ -94,10 +96,27 @@ export default class Field {
             activeCell.move(this.freeCell.position),
             this.freeCell.move(activeCell.position)
         ])
-        this.isNewGame = false
+        this.isGameNew = false
+        if (this.isGameShouldEnd()) {
+            this.isGameEnded = true
+        }
     }
 
     toString(): string {
         return this.cells.map(cell => cell.position).join(',') + ',' + this.freeCell.position.toString()
+    }
+
+    protected isGameShouldEnd(): boolean {
+        return this.cells.filter((cell: Cell, index: number) => {
+            return cell.position !== index + 1
+        }).length === 0
+    }
+
+    get isWon(): boolean {
+        return this.isGameEnded
+    }
+
+    get isNewGame(): boolean {
+        return this.isGameNew
     }
 }
