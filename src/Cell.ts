@@ -19,4 +19,8 @@ export default class Cell implements ICell {
             }, 1)
         })
     }
+
+    async moveWhileShuffling(newPosition: number): Promise<void> {
+        newPosition = newPosition | 1
+    }
 }
