@@ -61,7 +61,7 @@ export default class Field {
             const puzzles = this.puzzlesNear(this.freeCell.position, previousChosen)
             const chosenElement = this.randomFromArray(puzzles, 1, puzzles.length)
             previousChosen = this.freeCell.position
-            await this.move(chosenElement)
+            await this.moveWhileShuffling(chosenElement)
         }
         this.isGameNew = true
     }
@@ -84,7 +84,7 @@ export default class Field {
         }
     }
 
-    async move(cellPosition: number): Promise<void> {
+    protected getCellToMove(cellPosition: number): Cell {
         if (cellPosition > this.FIELD_SIZE || cellPosition < 1) {
             throw new Error(`position ${cellPosition} is invalid`)
         }
@@ -92,6 +92,23 @@ export default class Field {
         if (typeof(activeCell) === 'undefined' || !this.canMove(activeCell)) {
             throw new Error(`can't move the cell ${cellPosition}`)
         }
+        return activeCell
+    }
+
+    protected async moveWhileShuffling(cellPosition: number): Promise<void> {
+        const activeCell: Cell = this.getCellToMove(cellPosition)
+        await Promise.all([
+            activeCell.moveWhileShuffling(this.freeCell.position),
+            this.freeCell.moveWhileShuffling(activeCell.position)
+        ])
+        this.isGameNew = false
+        if (this.isGameShouldEnd()) {
+            this.isGameEnded = true
+        }
+    }
+
+    async move(cellPosition: number): Promise<void> {
+        const activeCell: Cell = this.getCellToMove(cellPosition)
         await Promise.all([
             activeCell.move(this.freeCell.position),
             this.freeCell.move(activeCell.position)

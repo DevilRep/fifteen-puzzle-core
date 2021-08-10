@@ -21,6 +21,6 @@ export default class Cell implements ICell {
     }
 
     async moveWhileShuffling(newPosition: number): Promise<void> {
-        newPosition = newPosition | 1
+        return this.move(newPosition)
     }
 }
