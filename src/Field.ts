@@ -6,7 +6,6 @@ export default class Field {
     protected freeCell: Cell
     protected readonly FIELD_SIZE: number = 16
     protected readonly FIELD_WIDTH: number = 4
-    protected isGameNew: boolean = false
     protected factory: AbstractFactory
     protected readonly MOVE_ALL_RANDOM_ROUNDS: number = 10
     protected isGameEnded: boolean = false
@@ -23,7 +22,6 @@ export default class Field {
             this.cells.push(this.factory.create(index, index.toString()))
         }
         this.freeCell = this.factory.create(this.FIELD_SIZE, '0')
-        this.isGameNew = true
         this.isGameEnded = false
     }
 
@@ -63,7 +61,6 @@ export default class Field {
             previousChosen = this.freeCell.position
             await this.moveWhileShuffling(chosenElement)
         }
-        this.isGameNew = true
     }
 
     protected randomFromArray(array: number[], min: number, max: number): number {
@@ -101,7 +98,6 @@ export default class Field {
             activeCell.moveWhileShuffling(this.freeCell.position),
             this.freeCell.moveWhileShuffling(activeCell.position)
         ])
-        this.isGameNew = false
         if (this.isGameShouldEnd()) {
             this.isGameEnded = true
         }
@@ -113,7 +109,6 @@ export default class Field {
             activeCell.move(this.freeCell.position),
             this.freeCell.move(activeCell.position)
         ])
-        this.isGameNew = false
         if (this.isGameShouldEnd()) {
             this.isGameEnded = true
         }
@@ -131,9 +126,5 @@ export default class Field {
 
     get isWon(): boolean {
         return this.isGameEnded
-    }
-
-    get isNewGame(): boolean {
-        return this.isGameNew
     }
 }
