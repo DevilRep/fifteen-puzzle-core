@@ -162,6 +162,9 @@ test('creating cells using factory', () => {
                 },
                 move(): Promise<void> {
                     return Promise.resolve()
+                },
+                moveWhileShuffling(): Promise<void> {
+                    return Promise.resolve()
                 }
             }
         }
