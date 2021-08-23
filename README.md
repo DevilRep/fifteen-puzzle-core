@@ -9,6 +9,7 @@ Rules can be found [_here_](https://en.wikipedia.org/wiki/15_puzzle)
 * [Setup](#setup)
 * [Tests](#tests)
 * [Project Status](#project-status)
+* [Roadmap](#roadmap)
 * [License](#license)
 
 
@@ -31,6 +32,12 @@ To run tests use this command ```yarn test```
 
 ## Project Status
 Project is: _in progress_
+
+
+##Roadmap
+* Support moving a few cells in one line in the same time
+* Readonly access to all cells outside the Field
+* Handler for win in the Field
 
 
 ## License
