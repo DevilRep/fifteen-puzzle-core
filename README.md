@@ -30,6 +30,7 @@ Add a lib to your npm file by this command ```yarn add https://github.com/DevilR
 ## Tests
 To run tests use this command ```yarn test```
 
+
 ## Project Status
 Project is: _in progress_
 
@@ -38,6 +39,10 @@ Project is: _in progress_
 * Support moving a few cells in one line in the same time
 * Readonly access to all cells outside the Field
 * Handler for win in the Field
+* Different kind of shuffling
+* Moving cells instead of recreating while starting a new game
+* Settings to start a custom game (different field size, etc)
+* Image instead of numbers in cells
 
 
 ## License
