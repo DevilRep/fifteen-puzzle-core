@@ -35,7 +35,7 @@ To run tests use this command ```yarn test```
 Project is: _in progress_
 
 
-##Roadmap
+## Roadmap
 * Support moving a few cells in one line in the same time
 * Readonly access to all cells outside the Field
 * Handler for win in the Field
@@ -43,6 +43,7 @@ Project is: _in progress_
 * Moving cells instead of recreating while starting a new game
 * Settings to start a custom game (different field size, etc)
 * Image instead of numbers in cells
+* Factory to create cells based on prototype
 
 
 ## License

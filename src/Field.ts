@@ -10,10 +10,8 @@ export default class Field {
     protected readonly MOVE_ALL_RANDOM_ROUNDS: number = 10
     protected isGameEnded: boolean = false
 
-    constructor(factory: AbstractFactory) {
-        this.factory = factory
-        this.freeCell = this.factory.create(this.FIELD_SIZE, '0')
-        this.init()
+    get isWon(): boolean {
+        return this.isGameEnded
     }
 
     protected init(): void {
@@ -49,18 +47,6 @@ export default class Field {
             }
         })
         return result
-    }
-
-    async newGame(): Promise<void> {
-        this.init()
-        let index = this.MOVE_ALL_RANDOM_ROUNDS
-        let previousChosen: number = 0
-        while(index--) {
-            const puzzles = this.puzzlesNear(this.freeCell.position, previousChosen)
-            const chosenElement = this.randomFromArray(puzzles, 1, puzzles.length)
-            previousChosen = this.freeCell.position
-            await this.moveWhileShuffling(chosenElement)
-        }
     }
 
     protected randomFromArray(array: number[], min: number, max: number): number {
@@ -103,6 +89,30 @@ export default class Field {
         }
     }
 
+    protected isGameShouldEnd(): boolean {
+        return this.cells.filter((cell: Cell, index: number) => {
+            return cell.position !== index + 1
+        }).length === 0
+    }
+
+    constructor(factory: AbstractFactory) {
+        this.factory = factory
+        this.freeCell = this.factory.create(this.FIELD_SIZE, '0')
+        this.init()
+    }
+
+    async newGame(): Promise<void> {
+        this.init()
+        let index = this.MOVE_ALL_RANDOM_ROUNDS
+        let previousChosen: number = 0
+        while(index--) {
+            const puzzles = this.puzzlesNear(this.freeCell.position, previousChosen)
+            const chosenElement = this.randomFromArray(puzzles, 1, puzzles.length)
+            previousChosen = this.freeCell.position
+            await this.moveWhileShuffling(chosenElement)
+        }
+    }
+
     async move(cellPosition: number): Promise<void> {
         const activeCell: Cell = this.getCellToMove(cellPosition)
         await Promise.all([
@@ -116,15 +126,5 @@ export default class Field {
 
     toString(): string {
         return this.cells.map(cell => cell.position).join(',') + ',' + this.freeCell.position.toString()
-    }
-
-    protected isGameShouldEnd(): boolean {
-        return this.cells.filter((cell: Cell, index: number) => {
-            return cell.position !== index + 1
-        }).length === 0
-    }
-
-    get isWon(): boolean {
-        return this.isGameEnded
     }
 }
