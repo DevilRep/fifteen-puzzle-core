@@ -1,4 +1,4 @@
-import {default as ICell} from './interfaces/Cell'
+import ICell from './interfaces/Cell'
 
 export default class Cell implements ICell {
     constructor(protected realPosition: number, protected data: string) {}

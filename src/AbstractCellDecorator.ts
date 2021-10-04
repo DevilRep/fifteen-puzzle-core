@@ -4,7 +4,7 @@ import ICell from './interfaces/Cell'
 export default abstract class AbstractCellDecorator extends Cell {
     protected cell: ICell
 
-    constructor(cell: ICell) {
+    protected constructor(cell: ICell) {
         super(cell.position, cell.display)
         this.cell = cell
     }
