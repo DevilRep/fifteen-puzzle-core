@@ -1,5 +1,5 @@
 import SimpleCellFactory from '../src/SimpleCellFactory'
-import AbstractFactory from '../src/interfaces/AbstractFactory'
+import AbstractFactory from '../src/interfaces/Factory'
 import Cell from '../src/interfaces/Cell'
 
 test('creating a new cell: checking the position', () => {
