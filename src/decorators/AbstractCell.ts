@@ -1,7 +1,7 @@
-import Cell from './Cell';
-import ICell from './interfaces/Cell'
+import Cell from '../Cell';
+import ICell from '../interfaces/Cell'
 
-export default abstract class AbstractCellDecorator extends Cell {
+export default abstract class AbstractCell extends Cell {
     protected cell: ICell
 
     protected constructor(cell: ICell) {

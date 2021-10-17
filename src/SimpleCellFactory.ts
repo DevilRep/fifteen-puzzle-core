@@ -1,4 +1,4 @@
-import AbstractFactory from './interfaces/AbstractFactory'
+import AbstractFactory from './interfaces/Factory'
 import Cell from './Cell'
 import ICell from './interfaces/Cell'
 

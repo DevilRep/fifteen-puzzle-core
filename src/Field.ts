@@ -1,5 +1,5 @@
 import Cell from './interfaces/Cell'
-import AbstractFactory from './interfaces/AbstractFactory'
+import AbstractFactory from './interfaces/Factory'
 
 export default class Field {
     protected cells: Array<Cell> = []

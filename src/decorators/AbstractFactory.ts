@@ -1,8 +1,8 @@
-import IFactory from './interfaces/AbstractFactory';
-import SimpleCellFactory from './SimpleCellFactory';
-import ICell from './interfaces/Cell'
+import IFactory from '../interfaces/Factory';
+import SimpleCellFactory from '../SimpleCellFactory';
+import ICell from '../interfaces/Cell'
 
-export default abstract class AbstractFactoryDecorator extends SimpleCellFactory {
+export default abstract class AbstractFactory extends SimpleCellFactory {
     protected factory: IFactory
 
     protected constructor(factory: IFactory) {
