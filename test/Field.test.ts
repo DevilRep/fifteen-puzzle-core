@@ -53,7 +53,7 @@ test('moving cell 15 right and back it to previous position: was the flag `isWon
     expect(field.isWon).toBeTruthy()
 })
 
-test('moving cells 15 and 14 right: was the flag `isWon` changed?', async () => {
+test('moving cellDecorators 15 and 14 right: was the flag `isWon` changed?', async () => {
     const field: Field = new Field(new SimpleCellFactory())
     await field.move(15)
     await field.move(14)
@@ -96,7 +96,7 @@ test('try to move cell with position more than 16: positions are not changed', a
     }
 })
 
-test('creating cells using factory', () => {
+test('creating cellDecorators using factory', () => {
     const field: Field = new Field({
         create(): Cell {
             return {
