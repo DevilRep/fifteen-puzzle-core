@@ -1,14 +1,14 @@
 import Cell from './interfaces/Cell'
 import AbstractFactory from './interfaces/Factory'
+import SettingsInterface from './interfaces/Settings';
+import DefaultSettings from './DefaultSettings';
 
 export default class Field {
     protected cells: Array<Cell> = []
     protected freeCell: Cell
-    protected readonly FIELD_SIZE: number = 16
-    protected readonly FIELD_WIDTH: number = 4
     protected factory: AbstractFactory
-    protected readonly MOVE_ALL_RANDOM_ROUNDS: number = 10
     protected isGameEnded: boolean = false
+    protected settings: SettingsInterface = new DefaultSettings()
 
     get isWon(): boolean {
         return this.isGameEnded
@@ -16,21 +16,21 @@ export default class Field {
 
     protected init(): void {
         this.cells = []
-        for(let index: number = 1; index <= this.FIELD_SIZE - 1; index++) {
+        for(let index: number = 1; index <= this.settings.field.size - 1; index++) {
             this.cells.push(this.factory.create(index, index.toString()))
         }
-        this.freeCell = this.factory.create(this.FIELD_SIZE, '0')
+        this.freeCell = this.factory.create(this.settings.field.size, '0')
         this.isGameEnded = false
     }
 
     protected puzzlesNear(index: number, previousChosen: number): number[] {
         const result: number[] = []
-        let amplitudes: number[] = [this.FIELD_WIDTH, -1 * this.FIELD_WIDTH]
+        let amplitudes: number[] = [this.settings.field.width, -1 * this.settings.field.width]
         amplitudes.forEach(amplitude => {
             let elementIndex = index - amplitude
             if (
                 elementIndex > 0 &&
-                elementIndex <= this.FIELD_SIZE &&
+                elementIndex <= this.settings.field.size &&
                 elementIndex !== previousChosen
             ) {
                 result.push(elementIndex)
@@ -40,7 +40,7 @@ export default class Field {
         amplitudes.forEach(amplitude => {
             let elementIndex = index - amplitude
             if (
-                Math.ceil(elementIndex / this.FIELD_WIDTH) === Math.ceil(index / this.FIELD_WIDTH) &&
+                Math.ceil(elementIndex / this.settings.field.width) === Math.ceil(index / this.settings.field.width) &&
                 elementIndex !== previousChosen
             ) {
                 result.push(elementIndex)
@@ -59,8 +59,8 @@ export default class Field {
         switch (this.freeCell.position - cell.position) {
             case 1:
             case -1:
-            case this.FIELD_WIDTH:
-            case -1 * this.FIELD_WIDTH:
+            case this.settings.field.width:
+            case -1 * this.settings.field.width:
                 return true
             default:
                 return false
@@ -68,7 +68,7 @@ export default class Field {
     }
 
     protected getCellToMove(cellPosition: number): Cell {
-        if (cellPosition > this.FIELD_SIZE || cellPosition < 1) {
+        if (cellPosition > this.settings.field.size || cellPosition < 1) {
             throw new Error(`position ${cellPosition} is invalid`)
         }
         let activeCell: Cell | undefined = this.cells.find(cell => cell.position === cellPosition)
@@ -97,13 +97,13 @@ export default class Field {
 
     constructor(factory: AbstractFactory) {
         this.factory = factory
-        this.freeCell = this.factory.create(this.FIELD_SIZE, '0')
+        this.freeCell = this.factory.create(this.settings.field.size, '0')
         this.init()
     }
 
     async newGame(): Promise<void> {
         this.init()
-        let index = this.MOVE_ALL_RANDOM_ROUNDS
+        let index = this.settings.shuffleRounds
         let previousChosen: number = 0
         while(index--) {
             const puzzles = this.puzzlesNear(this.freeCell.position, previousChosen)
